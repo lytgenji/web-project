@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="move.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            background-color: #000;
+            border: 1px blue dashed;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oDiv = document.getElementById('div1');
+            oDiv.onclick = function(){
+                startMove(this,{'width':300,'height':300,'margin':0,'padding':100});
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
