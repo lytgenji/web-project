@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.out{
+			width: 590px;
+			height: 470px;
+			border: 5px solid #fff;	
+			margin: 50px auto;
+			position: relative;
+			}
+		 .img li{
+		 	position: absolute;
+		 }
+		 .number{
+		 	position: absolute;
+		 	bottom: 20px;
+		    text-align: center;
+		    width: 100%;
+		 }
+		 .number li{
+		 	list-style: none;
+		 	display: inline-block;
+		 	margin-right: 30px;
+		 	color: white;
+		 	width: 20px;
+		 	height: 20px;
+		    cursor: pointer;
+		 	border-radius: 50%;
+		 	text-align: center;
+		 }
+	
+		 .btn{
+		 	position: absolute;
+		 	top: 50%;
+		 	
+		 	width: 30px;
+		 	height: 60px;
+		 	background-color: rgba(0,0,0,0.25);
+		 	text-align: center;
+		 	color: white;
+		 	line-height: 60px;
+		 	font-size: 40px;
+		 	margin-top:-30px ;
+		 	display: none;
+		 	cursor: pointer;
+		 }
+		 .left{
+		 	left: 0;
+		 }
+		 .right {
+		 	right: 0;
+		 }
+		 .show{
+		 	display: block;
+		 }
+	.active{
+		background-color: black;
+	}
+	.color{
+		background-color: aqua;
+	}
+	</style>
+	<body>
+		<div class="out">
+			<ul class="img">
+			<li ><a href="#"><img src="img/1.jpg" alt=""></a></li>
+			<li><a href="#"><img src="img/2.jpg" alt=""></a></li>
+			<li><a href="#"><img src="img/3.jpg"alt=""></a></li>
+			<li><a  href="#"><img src="img/4.jpg" alt=""></a></li>
+			<li><a  href="#"><img src="img/5.jpg"alt=""></a></li>
+			</ul>
+			<ul class="number">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			</ul>
+			<div class="left btn"><</div>
+			<div class="right btn">></div>
+			</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-2.1.0.js" ></script>
+<script>
+$(function(){
+	//让鼠标聚焦到图片上时候，显示两侧的按钮，
+	$(".out").hover(function(){
+		$(".btn").addClass("show");
+		clearInterval(timer);/*停止当前轮播图*/
+	},function(){
+		$(".btn").removeClass("show");/*离开图片的时候就隐藏按钮*/
+	})
+	//鼠标点击图片下方按钮显示对应图片
+	$(".number li").click(function(){
+		$(this).addClass("color").siblings().removeClass("color");/*给点击的当前的按钮添加样式，其他的按钮就取消样式*/
+		var index=$(this).index();/*返回按钮数组的下标*/
+		$(".img li").eq(index).fadeIn(1000).siblings().fadeOut(1000);/*找到对应下标的图片显示.而其他的图片隐藏*/
+	})
+	//自动轮播
+	var  i=0;
+	var timer=setInterval(move,1600);//设置定时器
+	function  move(){
+			i++;
+		if(i==5){//当跳转到第五张图片的时候就让i返回1
+			i=0;
+		}
+	
+		$(".img li").eq(i).fadeIn(1000).siblings().fadeOut(1000);
+		$(".number li").eq(i).addClass("color").siblings().removeClass("color");
+	}
+	
+	//这是右按钮点击跳转
+		function  moveL(){
+			i--;
+		if(i==-1){
+			i=4;
+		}
+	
+		$(".img li").eq(i).fadeIn(1000).siblings().fadeOut(1000);
+		$(".number li").eq(i).addClass("color").siblings().removeClass("color");
+	}
+		
+		
+		
+	$(".right").click(function(){//让按钮实现跳转，直接用按钮控制自动轮播就可以了
+		clearInterval(timer);
+		move();
+	})
+	$(".left").click(function(){
+		clearInterval(timer);
+		moveL();
+	})
+});
+</script>
